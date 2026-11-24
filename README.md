@@ -242,34 +242,52 @@ This repository is a development / integration baseline, not a production-certif
 
 `/start` is protected by `CALL_API_TOKEN` when that variable is set. Configure a strong random value before exposing the outbound API publicly. Do not expose the endpoint without authentication.
 
-======================
-Steps to set-up ngrok
-======================
 
-1. Create an ngrok Account and Copy Your Authtoken:
-Go to ngrok.com and sign up for an account. Once signed in, open the ngrok Dashboard and copy your Authtoken (found under Setup / Authtoken).
 
-2. Install ngrok on Windows
-<powershell>
-	winget install ngrok.ngrok
+# Steps to Set Up ngrok
 
-3. Connect Your Authtoken to the ngrok Agent
-<powershell>
-	ngrok config add-authtoken 'YOUR_NGROK_AUTHTOKEN'
+## 1. Create an ngrok Account and Copy Your Authtoken
 
-4. Start Your FastAPI Server and Expose Port 8000
-<powershell>
-	ngrok http 8000
+Go to [ngrok.com](https://ngrok.com) and sign up for an account. Once signed in, open the ngrok Dashboard and copy your Authtoken (found under **Setup → Your Authtoken**).
 
-Verification: ngrok displays a Forwarding URL (such as https://<random>.ngrok-free.app or your ngrok domain) pointing to http://localhost:8000,
-and GET <your-ngrok-url>/health returns {"status":"ok","service":"pipecat-vobiz-outbound"}.
+## 2. Install ngrok on Windows
 
-5. Set PUBLIC_URL for Vobiz Callbacks
+```powershell
+winget install ngrok.ngrok
+```
 
-Copy the https://... Forwarding URL from ngrok (without a trailing slash) into your .env as PUBLIC_URL,
-and restart your FastAPI server so answer_url points to https://<your-ngrok-url>/answer
+## 3. Connect Your Authtoken to the ngrok Agent
 
-===================================================================
+```powershell
+ngrok config add-authtoken "YOUR_NGROK_AUTHTOKEN"
+```
+
+## 4. Start Your FastAPI Server and Expose Port 8000
+
+```powershell
+ngrok http 8000
+```
+
+**Verification:** ngrok displays a Forwarding URL (such as `https://<random>.ngrok-free.app` or your ngrok domain) pointing to `http://localhost:8000`. A `GET <your-ngrok-url>/health` request should return:
+
+```json
+{"status": "ok", "service": "pipecat-vobiz-outbound"}
+```
+
+## 5. Set `PUBLIC_URL` for Vobiz Callbacks
+
+Copy the `https://...` Forwarding URL from ngrok (without a trailing slash) into your `.env` file as `PUBLIC_URL`:
+
+```env
+PUBLIC_URL=https://<your-ngrok-url>
+```
+
+Then restart your FastAPI server so that `answer_url` points to:
+
+```
+https://<your-ngrok-url>/answer
+```
+
 
 
 ## License
