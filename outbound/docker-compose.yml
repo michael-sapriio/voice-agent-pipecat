@@ -1,0 +1,14 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: voice-agent-pipecat-outbound:local
+    container_name: pipecat_vobiz_outbound_app
+    env_file:
+      - .env
+    ports:
+      - "8001:8000"
+    restart: unless-stopped
+    init: true
+    command: ["uvicorn", "server:app", "--host", "0.0.0.0", "--port", "8000"]

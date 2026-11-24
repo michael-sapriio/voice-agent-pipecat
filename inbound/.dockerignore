@@ -1,0 +1,39 @@
+# Secrets: injected at runtime by Compose, not baked into the image
+.env
+.env.*
+!.env.example
+
+# Git
+.git/
+.github/
+
+# Python cache and virtual environments
+__pycache__/
+*.py[cod]
+*.pyo
+.venv/
+venv/
+env/
+
+# Tests and tooling caches
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.coverage
+htmlcov/
+
+# Runtime files
+*.log
+logs/
+tmp/
+temp/
+*.db
+*.sqlite
+*.sqlite3
+
+# Editors and OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+desktop.ini
